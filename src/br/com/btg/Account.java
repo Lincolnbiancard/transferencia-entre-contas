@@ -1,18 +1,21 @@
 package br.com.btg;
 
-public class Account {
+public class Account implements IAccountRepository{
     private int origemAccountId;
     private String name;
     private double amount;
+    private int typeAccount;
     static int accounts = 0;
 
     public Account() {}
 
-    public void createAccount(String pName) {
-        this.name = pName;
+    @Override
+    public void createAccount(String pName, int typeAccount) {
+        this.setName(pName);
         accounts++;
-        this.origemAccountId = accounts;
-        this.amount = 0.0;
+        this.setOrigemAccountId(accounts); ;
+        this.setAmount(0.0);
+        this.setTypeAccount(typeAccount);
     }
 
     public void getDataAccount() {
@@ -32,6 +35,17 @@ public class Account {
         System.out.println("Depósito no valor de R$" + pValue + " foi realizado com sucesso!");
         System.out.println("Seu saldo atual: " + this.getAmount());
         System.out.println("-------------------------------------");
+    }
+
+    public String getTypeAccount(int number) {
+        String typeAccount;
+        if(number == 1) {
+            typeAccount = "corrente";
+        } else {
+            typeAccount = "poupança";
+        }
+
+        return typeAccount;
     }
 
     public void withdraw(Double pValue) {
@@ -57,20 +71,16 @@ public class Account {
         return amount;
     }
 
-    public static int getAccounts() {
-        return accounts;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public int getTypeAccount() {
+        return typeAccount;
     }
 
-    public static void setAccounts(int accounts) {
-        Account.accounts = accounts;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public void setName(String name) {
@@ -79,5 +89,9 @@ public class Account {
 
     public void setOrigemAccountId(int origemAccountId) {
         this.origemAccountId = origemAccountId;
+    }
+
+    public void setTypeAccount(int typeAccount) {
+        this.typeAccount = typeAccount;
     }
 }
